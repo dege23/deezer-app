@@ -1,0 +1,107 @@
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 0 8px;
+  gap: 24px;
+}
+
+main.openMenu {
+  display: none;
+}
+
+main h1 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--color-white);
+}
+
+.comercialButton {
+  display: flex;
+  justify-content: center;
+  background-color: #9333e8;
+  color: #fff;
+  border-radius: 8px;
+  padding: 8px 32px;
+  gap: 8px;
+  transition: 0.3s;
+}
+
+.PlayIcon {
+  margin: 1px 0 0 0;
+  color: var(--color-white);
+  width: 0;
+  height: 0;
+  fill: var(--color-white);
+  border-left: 8px solid #fff;
+  border-top: 4.5px solid transparent;
+  border-bottom: 4.5px solid transparent;
+  transition: 0.3s;
+}
+
+.insideComercialButton {
+  font-size: 0.6rem;
+  font-weight: 700;
+  display: flex;
+  background-color: transparent;
+  color: #fff;
+  border: 0;
+  outline: 0;
+  transition: 0.3s;
+}
+
+/* 
+.comercialButton:hover{
+}
+
+.comercialButton:hover .insideComercialButton {
+  font-size: 0.5rem;
+  letter-spacing: 0.8px;
+}
+
+.comercialButton:hover .PlayIcon {
+  margin: 0;
+  border-left: 7px solid #fff;
+} 
+*/
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 12px;
+  color: var(--color-white);
+}
+
+.Card {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.headerCard {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.wrapperImage {
+  width: 178px;
+  height: 152px;
+  background-color: #fff;
+}
+
+.mainCard{
+  display: flex;
+  flex-direction: column;
+  padding: 0 0 0 12px;
+  gap: 16px;
+}
+
+.infoCard{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}

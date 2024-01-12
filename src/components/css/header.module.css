@@ -1,0 +1,82 @@
+.Header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 12px;
+    position: relative;
+}
+
+/* Logo */
+.Logo {
+    width: 106px;
+    height: 48px;
+    margin: -12px -4px;
+}
+
+.st0 {
+    fill: var(--color-white);
+}
+
+/* Menu */
+.Menu {
+    display: flex;
+    flex-direction: column;
+}
+
+.MenuIcon {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.MenuIcon .line {
+    width: 20px;
+    height: 2px;
+    background-color: var(--color-white);
+    transition: 0.3s;
+}
+
+.Menu.open .line {
+    width: 18px;
+}
+
+.Menu.open .line1 {
+    transform: rotate(45deg) translate(6px, 9px);
+}
+.Menu.open .line2 {
+    opacity: 0;
+}
+.Menu.open .line3 {
+    transform: rotate(-45deg) translate(5px, -8px);
+}
+
+.MenuDrawer {
+    position: absolute;
+    display: none;
+    width: 100%;
+    top: 100%;
+    right: 0;
+    padding: 12px;
+    gap: 24px;
+    list-style: none;
+    font-weight: 500;
+}
+
+.MenuDrawer li {
+    display: flex;
+    justify-content: center;
+    color: var(--color-white);
+    cursor: pointer;
+}
+
+.MenuDrawer li a {
+    font-size: 0.8rem;
+    color: var(--color-white);
+}
+
+.Menu.open .MenuDrawer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
