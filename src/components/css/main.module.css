@@ -4,7 +4,7 @@ main {
   align-items: center;
   width: 100%;
   height: 100%;
-  padding: 0 8px;
+  padding: 8px 24px;
   gap: 24px;
 }
 
@@ -67,41 +67,3 @@ main h1 {
 } 
 */
 
-.cards {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  gap: 12px;
-  color: var(--color-white);
-}
-
-.Card {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
-.headerCard {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.wrapperImage {
-  width: 178px;
-  height: 152px;
-  background-color: #fff;
-}
-
-.mainCard{
-  display: flex;
-  flex-direction: column;
-  padding: 0 0 0 12px;
-  gap: 16px;
-}
-
-.infoCard{
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}

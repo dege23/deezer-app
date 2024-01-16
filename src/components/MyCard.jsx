@@ -1,13 +1,15 @@
-import styles from './css/main.module.css'
+import styles from './css/main.module.css';
 
-const Card = ({ className, headerPara }) => {
+const Card = ({ className }) => {
+
     return (
         <section className={className}>
             <section className={styles.headerCard}>
-                <h2>Os hits de hoje</h2>
+                <h2>{h2.content}</h2>
                 {
-                    headerPara ?
-                        <p>Atualizados todos os dias</p>
+                    headerPara.true
+                        ?
+                        <p>{headerPara.content}</p>
                         :
                         null
                 }
@@ -17,12 +19,13 @@ const Card = ({ className, headerPara }) => {
                     {/* Image */}
                 </section>
                 <section className={styles.infoCard}>
-                    <h3>Top Brasil</h3>
-                    <p>100 faixas - 5 782 595 fãs</p>
+                    <h3>{h3.content}</h3>
+                    <p>{tracks.content} - {fans.content}</p>
                 </section>
             </section>
         </section>
     )
+
 }
 
 export default Card

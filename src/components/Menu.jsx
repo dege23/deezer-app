@@ -1,4 +1,4 @@
-import MenuIcon from './icons/MenuIcon';
+import Icon from './icons';
 import MenuDrawer from './MenuDrawer';
 import styles from './css/header.module.css';
 
@@ -9,7 +9,7 @@ const Menu = ({ className, openMenu, setOpenMenu }) => {
 
     return (
         <section className={className}>
-            <MenuIcon
+            <Icon.Menu
                 className={styles.MenuIcon}
                 onClick={handleMenuIconClick}
             />
