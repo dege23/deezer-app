@@ -1,11 +1,11 @@
 .ButtonPlaylist {
-  border: 1px solid var(--text-color-primary);
+  border: 1px solid #444444;
   background-color: transparent;
   color: var(--color-white);
   border-radius: 8px;
   width: max-content;
   align-self: center;
   font-size: 0.8rem;
+  font-weight: 700;
   padding: 6px 24px;
-  margin: 12px 0;
 }

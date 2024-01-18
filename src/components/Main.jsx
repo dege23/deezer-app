@@ -1,182 +1,98 @@
 import styles from './css/main.module.css';
 import stylesCard from './cards/css/card.module.css';
-import Card from './cards'
-import Icon from './icons'
-import Button from './buttons'
-import { useState, useEffect } from 'react';
+import Card from './cards';
+import Icon from './icons';
+import Button from './buttons';
 
-const Main = ({ openMenu }) => {
-    const [location, setLocation] = useState('');
-    const [cards, setCards] = useState({});
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-
-        /* Data JSON */
-        const fetchData = async () => {
-            try {
-                const res = await fetch('http://localhost:5173/data.json');
-                if (!res.ok) {
-                    throw new Error(`Failed to fetch data (status: ${res.status})`);
-                }
-                const data = await res.json();
-                setCards(data);
-            } catch (error) {
-                console.error('Error fetching data:', error);
-            }
-            finally {
-                setLoading(false);
-            }
-        };
-
-        fetchData();
-        setLocation('brazil');
-
-    }, []);
+const Main = ({ openMenu, location, loading, cards, restCards }) => {
 
     if (loading) {
         return '...Carregando';
     }
 
-    const cardsTop100 = cards[location].top100;
+    const cardLocationTop100 = cards.globals[location].top100;
+    const globalsRestCards = restCards.globals;
+
+    const formatterFans = (fans) => {
+        const formattedFans = fans.split('.').join(' ');
+        return formattedFans;
+    }
 
     return (
         <main className={openMenu ? styles.openMenu : null}>
             <h1>Charts</h1>
             <label htmlFor="sound-deezer" className={styles.comercialButton}>
-                <Icon.Play className={styles.PlayIcon} />
+                <Icon.Play
+                    className={styles.PlayIcon}
+                />
                 <input type="button" id="sound-deezer" className={styles.insideComercialButton} value="Ouça na Deezer" />
             </label>
 
-            <Card.Group>
-                <Card.Header
-                    h2={'Os Hits de Hoje'}
-                    headerPara={'Atualizados todos os dias'}
-                />
-                <Card.Group className={stylesCard.innerGroup}>
-                    <Card.Root>
+            <section className={stylesCard.Cards}>
+                <Card.Group>
 
-                        <Card.Main
-                            img={cardsTop100.image}
-                            h3={cardsTop100.name}
-                            tracks={cardsTop100.tracks}
-                            fans={cardsTop100.fans}
-                        />
-                    </Card.Root>
-                    <Card.Root>
+                    {/* Init Group Card */}
 
-                        <Card.Main
-                            img={cardsTop100.image}
-                            h3={cardsTop100.name}
-                            tracks={cardsTop100.tracks}
-                            fans={cardsTop100.fans}
-                        />
+                    <Card.Header
+                        h2={'Os Hits de Hoje'}
+                        headerPara={'Atualizados todos os dias'}
+                    />
+                    <Card.Group className={stylesCard.innerGroup}>
 
-                    </Card.Root>
-                    <Card.Root>
+                        <Card.Root>
+                            <Card.Main
+                                img={cardLocationTop100.image}
+                                h3={cardLocationTop100.name}
+                                tracks={`${cardLocationTop100.tracks} faixas`}
+                                fans={`${formatterFans(cardLocationTop100.fans)} fãs`}
+                            />
+                        </Card.Root>
 
-                        <Card.Main
-                            img={cardsTop100.image}
-                            h3={cardsTop100.name}
-                            tracks={cardsTop100.tracks}
-                            fans={cardsTop100.fans}
-                        />
-                    </Card.Root>
-                    <Card.Root>
+                    </Card.Group>
 
-                        <Card.Main
-                            img={cardsTop100.image}
-                            h3={cardsTop100.name}
-                            tracks={cardsTop100.tracks}
-                            fans={cardsTop100.fans}
-                        />
-                    </Card.Root>
-                    <Card.Root>
-
-                        <Card.Main
-                            img={cardsTop100.image}
-                            h3={cardsTop100.name}
-                            tracks={cardsTop100.tracks}
-                            fans={cardsTop100.fans}
-                        />
-                    </Card.Root>
-                    <Card.Root>
-
-                        <Card.Main
-                            img={cardsTop100.image}
-                            h3={cardsTop100.name}
-                            tracks={cardsTop100.tracks}
-                            fans={cardsTop100.fans}
-                        />
-                    </Card.Root>
                 </Card.Group>
-            </Card.Group>
-            <Button.Playlist>Ver mais playlists</Button.Playlist>
-            <Card.Group>
-                <Card.Header
-                    className={stylesCard.CardHeader2}
-                    h2={'Charts'}
-                    icon={'dd'}
-                />
-                <Card.Group className={stylesCard.innerGroup}>
-                    <Card.Root>
 
-                        <Card.Main
-                            img={cardsTop100.image}
-                            h3={cardsTop100.name}
-                            tracks={cardsTop100.tracks}
-                            fans={cardsTop100.fans}
-                        />
-                    </Card.Root>
-                    <Card.Root>
+                {/* Finish Group Card */}
 
-                        <Card.Main
-                            img={cardsTop100.image}
-                            h3={cardsTop100.name}
-                            tracks={cardsTop100.tracks}
-                            fans={cardsTop100.fans}
-                        />
-                    </Card.Root>
-                    <Card.Root>
+                <Button.Playlist>Ver mais playlists</Button.Playlist>
 
-                        <Card.Main
-                            img={cardsTop100.image}
-                            h3={cardsTop100.name}
-                            tracks={cardsTop100.tracks}
-                            fans={cardsTop100.fans}
-                        />
-                    </Card.Root>
-                    <Card.Root>
+                {/* Init Group Card */}
 
-                        <Card.Main
-                            img={cardsTop100.image}
-                            h3={cardsTop100.name}
-                            tracks={cardsTop100.tracks}
-                            fans={cardsTop100.fans}
-                        />
-                    </Card.Root>
-                    <Card.Root>
+                <Card.Group>
+                    <Card.Header
+                        className={stylesCard.CardHeader2}
+                        h2={'Charts'}
+                        icon={(
+                            <Icon.IonIcon.ChevronRight />
+                        )}
+                    />
 
-                        <Card.Main
-                            img={cardsTop100.image}
-                            h3={cardsTop100.name}
-                            tracks={cardsTop100.tracks}
-                            fans={cardsTop100.fans}
-                        />
-                    </Card.Root>
-                    <Card.Root>
+                    <Card.Group className={stylesCard.innerGroup}>
 
-                        <Card.Main
-                            img={cardsTop100.image}
-                            h3={cardsTop100.name}
-                            tracks={cardsTop100.tracks}
-                            fans={cardsTop100.fans}
-                        />
-                    </Card.Root>
+                        {
+                            restCards.globals
+                            &&
+                            Object.keys(restCards.globals).map((key) => (
+                                <Card.Root key={key}>
+                                    <Card.Main
+                                        img={globalsRestCards[key].top100.image}
+                                        h3={globalsRestCards[key].top100.name}
+                                        tracks={`${globalsRestCards[key].top100.tracks} faixas`}
+                                        fans={`${formatterFans(globalsRestCards[key].top100.fans)} fãs`}
+                                    />
+                                </Card.Root>
+                            )
+                            )
+                        }
+
+                    </Card.Group>
                 </Card.Group>
-            </Card.Group>
-            <Button.Playlist>Ver mais playlists</Button.Playlist>
-        </main>
+
+                {/* Finish Group Card */}
+
+                <Button.Playlist>Ver mais playlists</Button.Playlist>
+            </section>
+        </main >
     )
 }
 
