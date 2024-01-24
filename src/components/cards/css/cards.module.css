@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  max-width: 100vw;
   gap: 24px;
 }
 
@@ -13,18 +14,16 @@
   color: var(--color-white);
 }
 
-.CardGroup.innerGroup:nth-child(1) {
-  grid-template-columns: 1fr;
-}
-
 .CardGroup.innerGroup {
   display: grid;
+  width: 100%;
   grid-template-columns: 1fr 1fr;
-  gap: 24px;
+  gap: 28px 12px;
   align-self: center;
+  overflow: hidden;
 }
 
-.Card {
+.CardRoot {
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -46,15 +45,9 @@
   font-weight: 500;
 }
 
-.WrapperImage {
-  width: 200px;
-  max-width: 100%;
-  height: 200px;
-}
-
 .Image {
   width: 100%;
-  height: 100%;
+  height: 160px;
   background: url("https://e-cdns-images.dzcdn.net/images/playlist/0b92c2f9e94a1a3650f0de769c4fc07c/264x264-000000-80-0-0.jpg")
     no-repeat center/100% 100%;
 }
@@ -62,19 +55,20 @@
 .CardMain {
   display: flex;
   flex-direction: column;
-  padding: 0 0 0 12px;
-  gap: 16px;
+  padding: 0 12px;
+  gap: 8px;
 }
 
 .InfoCard {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .InfoCard h3 {
   font-weight: 800;
 }
+
 .InfoCard p {
   color: #727272;
   font-size: 0.8rem;

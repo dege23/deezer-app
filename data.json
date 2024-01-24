@@ -1,6 +1,7 @@
 {
-  "globals": {
-    "world": {
+  "locations": [
+    {
+      "location": "world",
       "top100": {
         "name": "Top World",
         "tracks": 100,
@@ -8,7 +9,8 @@
         "image": "https://e-cdns-images.dzcdn.net/images/playlist/0b92c2f9e94a1a3650f0de769c4fc07c/264x264-000000-80-0-0.jpg"
       }
     },
-    "brazil": {
+    {
+      "location": "brazil",
       "top100": {
         "name": "Top Brasil",
         "tracks": 100,
@@ -16,71 +18,88 @@
         "image": "https://e-cdns-images.dzcdn.net/images/playlist/cec8c04c6e10f69af2702dc1c89b5366/278x278-000000-80-0-0.jpg"
       }
     },
-    "usa": {
+    {
+      "location": "usa",
       "top100": {
         "name": "Top USA",
         "tracks": 100,
         "fans": "868.544",
-        "image": "https://e-cdns-images.dzcdn.net/images/playlist/cec8c04c6e10f69af2702dc1c89b5366/278x278-000000-80-0-0.jpg"
+        "image": "https://e-cdns-images.dzcdn.net/images/playlist/0b92c2f9e94a1a3650f0de769c4fc07c/264x264-000000-80-0-0.jpg"
       }
     },
-    "uk": {
+    {
+      "location": "uk",
       "top100": {
         "name": "Top UK",
         "tracks": 100,
         "fans": "5.782.600",
-        "image": "https://e-cdns-images.dzcdn.net/images/playlist/cec8c04c6e10f69af2702dc1c89b5366/278x278-000000-80-0-0.jpg"
+        "image": "https://e-cdns-images.dzcdn.net/images/playlist/0b92c2f9e94a1a3650f0de769c4fc07c/264x264-000000-80-0-0.jpg"
       }
     },
-    "germany": {
+    {
+      "location": "germany",
       "top100": {
         "name": "Top Germany",
         "tracks": 100,
         "fans": "868.544",
-        "image": "https://e-cdns-images.dzcdn.net/images/playlist/cec8c04c6e10f69af2702dc1c89b5366/278x278-000000-80-0-0.jpg"
+        "image": "https://e-cdns-images.dzcdn.net/images/playlist/0b92c2f9e94a1a3650f0de769c4fc07c/264x264-000000-80-0-0.jpg"
       }
     },
-    "france": {
+    {
+      "location": "france",
       "top100": {
         "name": "Top France",
         "tracks": 100,
         "fans": "5.782.600",
-        "image": "https://e-cdns-images.dzcdn.net/images/playlist/cec8c04c6e10f69af2702dc1c89b5366/278x278-000000-80-0-0.jpg"
+        "image": "https://e-cdns-images.dzcdn.net/images/playlist/0b92c2f9e94a1a3650f0de769c4fc07c/264x264-000000-80-0-0.jpg"
       }
     },
-    "colombia": {
+    {
+      "location": "colombia",
       "top100": {
         "name": "Top Colombia",
         "tracks": 100,
         "fans": "868.544",
-        "image": "https://e-cdns-images.dzcdn.net/images/playlist/cec8c04c6e10f69af2702dc1c89b5366/278x278-000000-80-0-0.jpg"
+        "image": "https://e-cdns-images.dzcdn.net/images/playlist/0b92c2f9e94a1a3650f0de769c4fc07c/264x264-000000-80-0-0.jpg"
       }
     },
-    "canada": {
+    {
+      "location": "canada",
       "top100": {
         "name": "Top Canada",
         "tracks": 100,
         "fans": "5.782.600",
-        "image": "https://e-cdns-images.dzcdn.net/images/playlist/cec8c04c6e10f69af2702dc1c89b5366/278x278-000000-80-0-0.jpg"
+        "image": "https://e-cdns-images.dzcdn.net/images/playlist/0b92c2f9e94a1a3650f0de769c4fc07c/264x264-000000-80-0-0.jpg"
       }
     },
-    "mexico": {
+    {
+      "location": "mexico",
       "top100": {
         "name": "Top Mexico",
         "tracks": 100,
         "fans": "5.782.600",
-        "image": "https://e-cdns-images.dzcdn.net/images/playlist/cec8c04c6e10f69af2702dc1c89b5366/278x278-000000-80-0-0.jpg"
+        "image": "https://e-cdns-images.dzcdn.net/images/playlist/0b92c2f9e94a1a3650f0de769c4fc07c/264x264-000000-80-0-0.jpg"
       }
     },
-    "venezuela": {
+    {
+      "location": "venezuela",
       "top100": {
         "name": "Top Venezuela",
         "tracks": 100,
         "fans": "5.782.600",
-        "image": "https://e-cdns-images.dzcdn.net/images/playlist/cec8c04c6e10f69af2702dc1c89b5366/278x278-000000-80-0-0.jpg"
+        "image": "https://e-cdns-images.dzcdn.net/images/playlist/0b92c2f9e94a1a3650f0de769c4fc07c/264x264-000000-80-0-0.jpg"
+      }
+    },
+    {
+      "location": "russia",
+      "top100": {
+        "name": "Top Russia",
+        "tracks": 100,
+        "fans": "5.782.600",
+        "image": "https://e-cdns-images.dzcdn.net/images/playlist/0b92c2f9e94a1a3650f0de769c4fc07c/264x264-000000-80-0-0.jpg"
       }
     }
-  },
+  ],
   "mostSearched": [
     {
       "tag": "top-brazil",

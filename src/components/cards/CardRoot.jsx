@@ -1,8 +1,8 @@
-import styles from './css/card.module.css'
+import styles from './css/cards.module.css'
 
 const CardRoot = ({ children }) => {
     return (
-        <section className={styles.Card}>
+        <section className={styles.CardRoot}>
             {children}
         </section>
     )

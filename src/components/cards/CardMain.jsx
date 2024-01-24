@@ -1,4 +1,4 @@
-import styles from './css/card.module.css'
+import styles from './css/cards.module.css'
 
 const CardMain = ({ img, h3, tracks, fans }) => {
     return (
@@ -14,7 +14,12 @@ const CardMain = ({ img, h3, tracks, fans }) => {
             </section>
             <section className={styles.InfoCard}>
                 <h3>{h3}</h3>
-                <p>{tracks} - {fans}</p>
+                <p>{
+                    tracks && fans
+                        ?
+                        `${tracks} - ${fans}`
+                        : null
+                }</p>
             </section>
         </section>
     )

@@ -1,31 +1,50 @@
 import styles from './css/main.module.css';
-import stylesCard from './cards/css/card.module.css';
+import stylesCard from './cards/css/cards.module.css';
 import Card from './cards';
 import Icon from './icons';
 import Button from './buttons';
 
-const Main = ({ openMenu, location, loading, cards, restCards }) => {
+const Main = ({ openMenu, location, loading, trackData, cards, restCards }) => {
 
-    if (loading) {
-        return '...Carregando';
+    if (loading || !trackData) {
+        return <main className={styles.loading}><h1>...Carregando</h1></main>;
     }
 
-    const cardLocationTop100 = cards.globals[location].top100;
-    const globalsRestCards = restCards.globals;
+    const cardLocationTop100 = () => {
+        if (!cards || !cards.locations) {
+            return null;
+        }
+
+        return cards.locations.find(card => card.location === location) || null;
+    };
 
     const formatterFans = (fans) => {
-        const formattedFans = fans.split('.').join(' ');
-        return formattedFans;
-    }
+        fans &&
+            fans.toString().toLocaleString('en-US').split(',').join(' ');
+    };
+
+    const keysRest = restCards.slice(0, 4)
+
+    console.log(trackData);
+
+    const userLocationPlaylist = trackData.playlists.userLocationPlaylist;
 
     return (
         <main className={openMenu ? styles.openMenu : null}>
             <h1>Charts</h1>
-            <label htmlFor="sound-deezer" className={styles.comercialButton}>
+            <label
+                htmlFor="sound-deezer"
+                className={styles.comercialButton}
+            >
                 <Icon.Play
                     className={styles.PlayIcon}
                 />
-                <input type="button" id="sound-deezer" className={styles.insideComercialButton} value="Ouça na Deezer" />
+                <input
+                    type="button"
+                    id="sound-deezer"
+                    className={styles.insideComercialButton}
+                    value="Ouça na Deezer"
+                />
             </label>
 
             <section className={stylesCard.Cards}>
@@ -41,10 +60,10 @@ const Main = ({ openMenu, location, loading, cards, restCards }) => {
 
                         <Card.Root>
                             <Card.Main
-                                img={cardLocationTop100.image}
-                                h3={cardLocationTop100.name}
-                                tracks={`${cardLocationTop100.tracks} faixas`}
-                                fans={`${formatterFans(cardLocationTop100.fans)} fãs`}
+                                img={userLocationPlaylist.picture_big}
+                                h3={userLocationPlaylist.title}
+                                tracks={`${userLocationPlaylist.nb_tracks} faixas`}
+                                fans={userLocationPlaylist.fans}
                             />
                         </Card.Root>
 
@@ -70,15 +89,15 @@ const Main = ({ openMenu, location, loading, cards, restCards }) => {
                     <Card.Group className={stylesCard.innerGroup}>
 
                         {
-                            restCards.globals
+                            restCards
                             &&
-                            Object.keys(restCards.globals).map((key) => (
-                                <Card.Root key={key}>
+                            keysRest.map((restCard, index) => (
+                                <Card.Root key={index}>
                                     <Card.Main
-                                        img={globalsRestCards[key].top100.image}
-                                        h3={globalsRestCards[key].top100.name}
-                                        tracks={`${globalsRestCards[key].top100.tracks} faixas`}
-                                        fans={`${formatterFans(globalsRestCards[key].top100.fans)} fãs`}
+                                        img={restCard.top100.image}
+                                        h3={restCard.top100.name}
+                                        tracks={`${restCard.top100.tracks} faixas`}
+                                        fans={`${restCard.top100.fans} fãs`}
                                     />
                                 </Card.Root>
                             )

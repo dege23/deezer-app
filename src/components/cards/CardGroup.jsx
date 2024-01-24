@@ -1,4 +1,4 @@
-import styles from './css/card.module.css'
+import styles from './css/cards.module.css'
 
 const CardContainer = ({ className, children }) => {
     return (
