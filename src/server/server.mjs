@@ -1,8 +1,9 @@
 class theReqs {
-  constructor(userLocationPlaylist, otherLocationsPlaylist) {
+  constructor(userLocationPlaylist, otherLocationsPlaylist, songCatcher) {
     this.playlists = {
       userLocationPlaylist: userLocationPlaylist,
       otherLocationPlaylists: otherLocationsPlaylist,
+      songCatcher: songCatcher,
     };
   }
 }
@@ -18,22 +19,54 @@ app.use(cors());
 
 const apiPlaylist = "https://api.deezer.com/playlist/";
 
-const locationPlaylists = {
-  W0: 3155776842, ////// World deve ser incluida
-  BR: 1111141961, // Brazil
-  US: 1313621735, // United States
-  UK: 1111142221, // United Kingdom
-  DE: 1111143121, // Germany
-  FR: 1109890291, // France
-  CO: 1116188451, // Colombia
-  CA: 1652248171, // Canada
-  MX: 1111142361, // Mexico
-  VE: 1111142361, // Venezuela/Mexico - Para Teste
+const playlistsId = {
+  locations: {
+    W0: {
+      top100: 3155776842,
+      songcather: 10517232022,
+    }, // World
+    BR: {
+      top100: 1111141961,
+      songcather: 10517232022,
+    }, // Brazil
+    US: {
+      top100: 1313621735,
+      songcather: 10517232022,
+    }, // United States
+    GB: {
+      top100: 1111142221,
+      songcather: 10517232022,
+    }, // United Kingdom
+    DE: {
+      top100: 1111143121,
+      songcather: 10517232022,
+    }, // Germany
+    FR: {
+      top100: 1109890291,
+      songcather: 10517232022,
+    }, // France
+    CO: {
+      top100: 1116188451,
+      songcather: 10517232022,
+    }, // Colombia
+    CA: {
+      top100: 1652248171,
+      songcather: 10517232022,
+    }, // Canada
+    MX: {
+      top100: 1111142361,
+      songcather: 10517232022,
+    }, // Mexico
+    VE: {
+      top100: 1111142361,
+      songcather: 10517232022,
+    }, // Venezuela/Mexico - Para Teste
+  },
 };
 
-const fetchLocationPlaylist = async (playlistId) => {
+const fetchData = async (url, playlistId) => {
   try {
-    const response = await fetch(`${apiPlaylist}${playlistId}`);
+    const response = await fetch(`${url}${playlistId}`);
     const data = await response.json();
     return data;
   } catch (err) {
@@ -53,8 +86,8 @@ const getLocationCode = (key) => {
       variable = "US";
       break;
 
-    case "UK":
-      variable = "UK";
+    case "GB":
+      variable = "GB";
       break;
 
     case "DE":
@@ -96,7 +129,7 @@ app.get("/api/deezer-chart/:countryCode", async (req, res) => {
       "W0",
       "BR",
       "US",
-      "UK",
+      "GB",
       "DE",
       "FR",
       "CO",
@@ -105,8 +138,9 @@ app.get("/api/deezer-chart/:countryCode", async (req, res) => {
       "VE",
     ];
 
-    const currentLocation = await fetchLocationPlaylist(
-      locationPlaylists[getLocationCode(countryCode)]
+    const currentLocation = await fetchData(
+      apiPlaylist,
+      playlistsId.locations[getLocationCode(countryCode)].top100
     );
 
     const filteredDesired = desiredCountryCodes.filter(
@@ -117,11 +151,18 @@ app.get("/api/deezer-chart/:countryCode", async (req, res) => {
 
     const otherLocations = await Promise.all(
       limiterReqs.map(async (code) => {
-        const playlist = await fetchLocationPlaylist(
-          locationPlaylists[getLocationCode(code)]
+        const playlist = await fetchData(
+          apiPlaylist,
+          playlistsId.locations[getLocationCode(code)].top100
         );
+
         return { ...playlist };
       })
+    );
+
+    const songcather = await fetchData(
+      apiPlaylist,
+      playlistsId.locations[getLocationCode(countryCode)].songcather
     );
 
     const formattedRes = JSON.stringify(
@@ -129,7 +170,10 @@ app.get("/api/deezer-chart/:countryCode", async (req, res) => {
         {
           ...currentLocation,
         },
-        otherLocations
+        [...otherLocations],
+        {
+          ...songcather,
+        }
       ),
       null,
       2

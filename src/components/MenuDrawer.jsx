@@ -1,30 +1,24 @@
+import { useAuth } from "../hooks/useAuth";
+
 const MenuDrawer = ({ className }) => {
+    const { signOut } = useAuth();
+
     return (
         <ul className={className}>
             <li>
-                <a href="/">
-                    Lançar Deezer
-                </a>
+                Lançar Deezer
             </li>
             <li>
-                <a href="/">
-                    Baixe o aplicativo
-                </a>
+                Baixe o aplicativo
             </li>
             <li>
-                <a href="/">
-                    Planos
-                </a>
+                Planos
             </li>
             <li>
-                <a href="/">
-                    Explore os Canais
-                </a>
+                Explore os Canais
             </li>
-            <li>
-                <a href="/">
-                    Desconectar
-                </a>
+            <li onClick={signOut}>
+                Desconectar
             </li>
         </ul>
     )

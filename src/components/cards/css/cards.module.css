@@ -75,3 +75,8 @@
   font-weight: 500;
   letter-spacing: 1px;
 }
+
+.CardMusicList {
+  list-style-type: decimal-leading-zero;
+  margin: 16px;
+}

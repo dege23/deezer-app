@@ -8,4 +8,9 @@
   font-size: 0.8rem;
   font-weight: 700;
   padding: 6px 24px;
+  cursor: pointer;
+}
+
+.ButtonPlaylist:hover {
+  background-color: var(--bg-primary-hover);
 }

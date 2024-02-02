@@ -12,7 +12,9 @@ main.openMenu {
   display: none;
 }
 
-main.loading{
+main.loading {
+  justify-content: center;
+  height: 100vh;
 }
 
 main h1 {

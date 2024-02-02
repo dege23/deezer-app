@@ -4,114 +4,133 @@ import Card from './cards';
 import Icon from './icons';
 import Button from './buttons';
 
-const Main = ({ openMenu, location, loading, trackData, cards, restCards }) => {
+const Main = ({ openMenu, trackData }) => {
 
-    if (loading || !trackData) {
-        return <main className={styles.loading}><h1>...Carregando</h1></main>;
+    const formatterFans = (fans, separator) => {
+        return fans.toLocaleString('en-US').split(',').join(separator);
     }
 
-    const cardLocationTop100 = () => {
-        if (!cards || !cards.locations) {
-            return null;
-        }
-
-        return cards.locations.find(card => card.location === location) || null;
-    };
-
-    const formatterFans = (fans) => {
-        fans &&
-            fans.toString().toLocaleString('en-US').split(',').join(' ');
-    };
-
-    const keysRest = restCards.slice(0, 4)
-
-    console.log(trackData);
-
-    const userLocationPlaylist = trackData.playlists.userLocationPlaylist;
-
     return (
-        <main className={openMenu ? styles.openMenu : null}>
-            <h1>Charts</h1>
-            <label
-                htmlFor="sound-deezer"
-                className={styles.comercialButton}
-            >
-                <Icon.Play
-                    className={styles.PlayIcon}
-                />
-                <input
-                    type="button"
-                    id="sound-deezer"
-                    className={styles.insideComercialButton}
-                    value="Ouça na Deezer"
-                />
-            </label>
-
-            <section className={stylesCard.Cards}>
-                <Card.Group>
-
-                    {/* Init Group Card */}
-
-                    <Card.Header
-                        h2={'Os Hits de Hoje'}
-                        headerPara={'Atualizados todos os dias'}
-                    />
-                    <Card.Group className={stylesCard.innerGroup}>
-
-                        <Card.Root>
-                            <Card.Main
-                                img={userLocationPlaylist.picture_big}
-                                h3={userLocationPlaylist.title}
-                                tracks={`${userLocationPlaylist.nb_tracks} faixas`}
-                                fans={userLocationPlaylist.fans}
+        <main className={`${openMenu && styles.openMenu} ${!trackData && styles.loading}`}>
+            {
+                !trackData ?
+                    <>
+                        <h1>...Carregando</h1>
+                    </>
+                    :
+                    <>
+                        <h1>Charts</h1>
+                        <label
+                            htmlFor="sound-deezer"
+                            className={styles.comercialButton}
+                        >
+                            <Icon.Play
+                                className={styles.PlayIcon}
                             />
-                        </Card.Root>
+                            <input
+                                type="button"
+                                id="sound-deezer"
+                                className={styles.insideComercialButton}
+                                value="Ouça na Deezer"
+                            />
+                        </label>
 
-                    </Card.Group>
+                        <section className={stylesCard.Cards}>
+                            <Card.Group>
 
-                </Card.Group>
+                                {/* Init Group Card */}
 
-                {/* Finish Group Card */}
+                                <Card.Header
+                                    h2={'Os Hits de Hoje'}
+                                    headerPara={'Atualizados todos os dias'}
+                                />
+                                <Card.Group className={stylesCard.innerGroup}>
 
-                <Button.Playlist>Ver mais playlists</Button.Playlist>
+                                    <Card.Root>
+                                        <Card.Main
+                                            img={trackData.playlists.userLocationPlaylist.picture_xl}
+                                            h3={trackData.playlists.userLocationPlaylist.title}
+                                            tracks={`${trackData.playlists.userLocationPlaylist.nb_tracks} faixas`}
+                                            fans={`${formatterFans(trackData.playlists.userLocationPlaylist.fans, ' ')} fãs`}
+                                        />
+                                    </Card.Root>
 
-                {/* Init Group Card */}
+                                    <Card.MusicList musicList={trackData.playlists.userLocationPlaylist.tracks.data.slice(0, 5)} />
 
-                <Card.Group>
-                    <Card.Header
-                        className={stylesCard.CardHeader2}
-                        h2={'Charts'}
-                        icon={(
-                            <Icon.IonIcon.ChevronRight />
-                        )}
-                    />
+                                </Card.Group>
 
-                    <Card.Group className={stylesCard.innerGroup}>
+                            </Card.Group>
 
-                        {
-                            restCards
-                            &&
-                            keysRest.map((restCard, index) => (
-                                <Card.Root key={index}>
-                                    <Card.Main
-                                        img={restCard.top100.image}
-                                        h3={restCard.top100.name}
-                                        tracks={`${restCard.top100.tracks} faixas`}
-                                        fans={`${restCard.top100.fans} fãs`}
-                                    />
-                                </Card.Root>
-                            )
-                            )
-                        }
+                            {/* Finish Group Card */}
 
-                    </Card.Group>
-                </Card.Group>
+                            <Button.Playlist>Ver mais playlists</Button.Playlist>
 
-                {/* Finish Group Card */}
+                            {/* Init Group Card */}
 
-                <Button.Playlist>Ver mais playlists</Button.Playlist>
-            </section>
-        </main >
+                            <Card.Group>
+                                <Card.Header
+                                    className={stylesCard.CardHeader2}
+                                    h2={'Charts'}
+                                    icon={(
+                                        <Icon.IonIcon.ChevronRight />
+                                    )}
+                                />
+
+                                <Card.Group className={stylesCard.innerGroup}>
+
+                                    {
+                                        trackData.playlists.otherLocationPlaylists.map((track) => (
+                                            <Card.Root key={track.id}>
+                                                <Card.Main
+                                                    img={track.picture_xl}
+                                                    h3={track.title}
+                                                    tracks={`${track.nb_tracks} faixas`}
+                                                    fans={`${formatterFans(track.fans, ' ')} fãs`}
+                                                />
+                                            </Card.Root>
+                                        )
+                                        )
+                                    }
+
+                                </Card.Group>
+                            </Card.Group>
+
+                            {/* Finish Group Card */}
+
+                            <Button.Playlist>Ver mais playlists</Button.Playlist>
+
+                            {/* Init Group Card */}
+
+                            <Card.Group>
+                                <Card.Header
+                                    h2={'SongCatcher'}
+                                    headerPara={'Playlist das músicas mais procuradas'}
+                                />
+
+                                <Card.Group className={stylesCard.innerGroup}>
+
+                                    {
+                                        <Card.Root key={trackData.playlists.songCatcher.id}>
+                                            <Card.Main
+                                                img={trackData.playlists.songCatcher.picture_xl}
+                                                h3={trackData.playlists.songCatcher.title}
+                                                tracks={`${trackData.playlists.songCatcher.nb_tracks} faixas`}
+                                                fans={`${formatterFans(trackData.playlists.songCatcher.fans, ' ')} fãs`}
+                                            />
+                                        </Card.Root>
+                                    }
+
+                                </Card.Group>
+                            </Card.Group>
+
+                            {/* Finish Group Card */}
+
+                            <Button.Playlist>Ver mais playlists</Button.Playlist>
+
+                        </section>
+                    </>
+            }
+        </main>
     )
 }
 
