@@ -1,4 +1,4 @@
-const Button = ({ className, type, action, text }) => {
+const ButtonForm = ({ className, type, action, text }) => {
 
     return (
         <button
@@ -9,7 +9,7 @@ const Button = ({ className, type, action, text }) => {
             }
             onClick={
                 action
-                    && action
+                && action
             }
         >
             {text}
@@ -17,4 +17,4 @@ const Button = ({ className, type, action, text }) => {
     )
 }
 
-export default Button;
+export default ButtonForm;

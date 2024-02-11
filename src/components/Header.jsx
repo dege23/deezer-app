@@ -1,15 +1,14 @@
-import styles from './css/header.module.css';
-import Icon from './icons'
-import Menu from './Menu';
+import { Link } from 'react-router-dom';
+import Icon from './icons';
+import Menu from './menu/Menu';
 
 const Header = ({ openMenu, setOpenMenu }) => {
     return (
-        <header className={`${styles.Header} ${openMenu ? styles.openMenu : null}`} >
-            <a href="/">
-                <Icon.Logo className={styles.Logo} />
-            </a>
+        <header className={`relative flex justify-between w-full p-3`} >
+            <Link to={'/'}>
+                <Icon.Logo />
+            </Link>
             <Menu
-                className={`${styles.Menu} ${openMenu ? styles.open : null}`}
                 openMenu={openMenu}
                 setOpenMenu={setOpenMenu}
             />

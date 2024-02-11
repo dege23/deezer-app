@@ -1,19 +1,29 @@
-import styles from './css/cards.module.css'
+import { tv } from "tailwind-variants";
 
-const CardHeader = ({ className, h2, headerPara, icon }) => {
+const CardHeader = ({ title, description, icon, flexDirection }) => {
+
+    const headerStyle = tv({
+        base: 'flex gap-1',
+        variants: {
+            flexDirection: {
+                col: 'flex-col'
+            }
+        }
+    })
+
     return (
-        <section className={`${styles.CardHeader} ${className}`}>
-            <h2>{h2}</h2>
-                {
-                    headerPara
-                    &&
-                    <p>{headerPara}</p>
-                }
-                {
-                    icon
-                    &&
-                    icon
-                }
+        <section className={headerStyle({ flexDirection })}>
+            <h2 className="font-bold">{title}</h2>
+            {
+                description
+                &&
+                <p className="text-zinc-300">{description}</p>
+            }
+            {
+                icon
+                &&
+                icon
+            }
         </section>
     )
 }

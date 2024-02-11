@@ -1,13 +1,18 @@
+import { useEffect } from "react";
+import { useAuth } from "./hooks";
+import { useNavigate } from "react-router-dom";
 
-const App = ({ children }) => {
+const App = () => {
+    const navigate = useNavigate();
 
+    const { signed } = useAuth();
 
+    useEffect(() => {
 
-    return (
-        <div className='App'>
-            {children}
-        </div>
-    );
+        if (!signed) {
+            navigate('/form/register', { replace: true });
+        }
+    }, [signed]);
 };
 
 export default App;

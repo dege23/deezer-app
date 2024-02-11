@@ -11,6 +11,36 @@
   --color-grey-900: #121216;
 }
 
+@layer components {
+  .item-menu {
+    @apply flex justify-center text-white cursor-pointer text-sm;
+  }
+
+  .menuDrawer-Open {
+    @apply flex flex-col justify-around items-center;
+  }
+
+  .line-menu {
+    @apply w-5 h-0.5 bg-white duration-300;
+  }
+
+  .line-menu-Open {
+    @apply w-5;
+  }
+
+  .title {
+    @apply text-2xl text-white font-extrabold;
+  }
+
+  .wrapperCardGroup {
+    @apply flex flex-col w-full gap-4 text-white;
+  }
+  .cardRoot {
+    @apply grid grid-cols-2 grid-rows-3;
+    grid-template-areas: "container1 container2" "container3 container3";
+  }
+}
+
 * {
   margin: 0;
   padding: 0;

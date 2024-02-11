@@ -1,4 +1,23 @@
-.Cards {
+@tailwind components;
+
+@layer components {
+  .hiddenings {
+    @apply opacity-0 -z-10;
+  }
+  .wrapperCardImage:hover .cardImage {
+    @apply max-md:opacity-100 opacity-80;
+  }
+  .wrapperCardImage:hover .optionsCard .hiddenings {
+    @apply flex opacity-100 z-10 max-md:hidden;
+  }
+  .list-item {
+    @apply hover:bg-zinc-700 flex items-center py-2 px-4 gap-2 select-none;
+  }
+}
+
+/* Remover abaixo */
+
+/* .Cards {
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -79,4 +98,4 @@
 .CardMusicList {
   list-style-type: decimal-leading-zero;
   margin: 16px;
-}
+} */

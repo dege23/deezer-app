@@ -1,11 +1,7 @@
-import Logo from './Logo'
-import MenuIcon from './MenuIcon'
-import PlayIcon from './PlayIcon'
-import IonIcon from './ionicons'
+import Logo from './Logo';
+import MenuIcon from './MenuIcon';
 
 export default {
     Logo: Logo,
-    Play: PlayIcon,
-    Menu: MenuIcon,
-    IonIcon: IonIcon
+    Menu: MenuIcon
 }

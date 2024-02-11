@@ -1,12 +1,12 @@
-import styles from '../css/header.module.css';
-
-const MenuIcon = ({ className, onClick }) => {
-
+const MenuIcon = ({ onClick, openMenu }) => {
     return (
-        <section className={className} onClick={onClick}>
-            <div className={`${styles.line} ${styles.line1}`}></div>
-            <div className={`${styles.line} ${styles.line2}`}></div>
-            <div className={`${styles.line} ${styles.line3}`}></div>
+        <section
+            className='flex flex-col gap-2'
+            onClick={onClick}
+        >
+            <div className={`line-menu ${openMenu ? 'line-menu-Open rotate-45 translate-y-[11px]' : ''}`}></div>
+            <div className={`line-menu ${openMenu ? 'opacity-0' : ''}`}></div>
+            <div className={`line-menu ${openMenu ? 'line-menu-Open -rotate-45 -translate-y-[9px]' : ''}`}></div>
         </section>
     );
 

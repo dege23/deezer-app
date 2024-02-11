@@ -1,4 +1,4 @@
-main {
+/* main {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -6,22 +6,22 @@ main {
   height: 100%;
   padding: 8px 24px;
   gap: 24px;
-}
+} */
 
-main.openMenu {
+/* main.openMenu {
   display: none;
-}
+} */
 
-main.loading {
+/* main.loading {
   justify-content: center;
   height: 100vh;
-}
+} */
 
-main h1 {
+/* main h1 {
   font-size: 1.4rem;
   font-weight: 800;
   color: var(--color-white);
-}
+} */
 
 .comercialButton {
   display: flex;

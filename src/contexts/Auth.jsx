@@ -1,15 +1,17 @@
 import { createContext, useState, useEffect } from "react";
 
-export const AuthContext = createContext({});
+const AuthContext = createContext({});
 
-export const AuthProvider = ({ children }) => {
+// Adicionar função de gerar um UUID para um novo user criado
+
+const AuthProvider = ({ children }) => {
     const [user, setUser] = useState();
+    const usersStorage = localStorage.getItem('users_db');
+    const userToken = localStorage.getItem('user_token');
+    const objUsersStorage = JSON.parse(usersStorage);
+    const objUserToken = JSON.parse(userToken);
 
     useEffect(() => {
-        const userToken = localStorage.getItem('user_token');
-        const usersStorage = localStorage.getItem('users_db');
-        const objUserToken = JSON.parse(userToken);
-        const objUsersStorage = JSON.parse(usersStorage);
 
         if (userToken && usersStorage) {
             const hasUser = objUsersStorage?.filter((user) => user.email === objUserToken.email && user.password === objUserToken.password);
@@ -20,10 +22,31 @@ export const AuthProvider = ({ children }) => {
         }
     }, []);
 
-    const signIn = (email, password) => {
-        const usersStorage = JSON.parse(localStorage.getItem('users_db'));
+    const signUp = (username, email, password, countryCode) => {
 
-        const hasUser = usersStorage?.filter((user) => user.email === email);
+        const hasUser = objUsersStorage?.filter((user) => user.email === email || user.username === username);
+
+        if (hasUser?.length) {
+            return 'Já existe um usuário com esse nome ou e-mail!';
+        }
+
+        let newUser;
+
+        if (objUsersStorage) {
+            newUser = [...objUsersStorage, { username, email, password, countryCode, userFavs: [] }]
+        }
+        else {
+            newUser = [{ username, email, password, countryCode, userFavs: [] }];
+        }
+
+        localStorage.setItem('users_db', JSON.stringify(newUser));
+
+        return;
+    }
+
+    const signIn = (email, password) => {
+
+        const hasUser = objUsersStorage?.filter((user) => user.email === email);
 
         if (hasUser?.length) {
             if (hasUser[0].email === email && hasUser[0].password === password) {
@@ -40,6 +63,7 @@ export const AuthProvider = ({ children }) => {
                     email: hasUser[0].email,
                     password: hasUser[0].password,
                     countryCode: hasUser[0].countryCode,
+                    userFavs: hasUser[0].userFavs
                 });
                 return;
             }
@@ -52,32 +76,27 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-    const signUp = (username, email, password, countryCode) => {
-        const usersStorage = JSON.parse(localStorage.getItem('users_db'));
-
-        const hasUser = usersStorage?.filter((user) => user.email === email || user.username === username);
-
-        if (hasUser?.length) {
-            return 'Já existe um usuário com esse nome ou e-mail!';
-        }
-
-        let newUser;
-
-        if (usersStorage) {
-            newUser = [...usersStorage, { username, email, password, countryCode }]
-        }
-        else {
-            newUser = [{ username, email, password, countryCode }];
-        }
-
-        localStorage.setItem('users_db', JSON.stringify(newUser));
-
-        return;
-    }
-
     const signOut = () => {
         setUser(null);
         localStorage.removeItem('user_token');
+    }
+
+    const updateUser = (updatedUser) => {
+        if (user) {
+            const indexUser = objUsersStorage?.findIndex((thisUser) => user.email === thisUser.email && user.password === thisUser.password);
+
+            const filterDb = objUsersStorage?.filter((thisUser) => thisUser.email !== user.email);
+
+            const newDb = [
+                ...filterDb.slice(0, indexUser),
+                { ...updatedUser },
+                ...filterDb.slice(indexUser)
+            ];
+
+            setUser({ ...updatedUser });
+
+            localStorage.setItem('users_db', JSON.stringify([...newDb]));
+        }
     }
 
     return (
@@ -85,12 +104,15 @@ export const AuthProvider = ({ children }) => {
             value={{
                 user,
                 signed: !!user,
-                signIn,
                 signUp,
-                signOut
+                signIn,
+                signOut,
+                updateUser
             }}
         >
             {children}
         </AuthContext.Provider>
     )
 }
+
+export { AuthContext, AuthProvider };

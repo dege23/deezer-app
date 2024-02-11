@@ -1,65 +1,69 @@
-import styles from './css/main.module.css';
-import stylesCard from './cards/css/cards.module.css';
+import { useState, useEffect } from 'react';
+import { ChevronRight } from 'lucide-react';
 import Card from './cards';
-import Icon from './icons';
 import Button from './buttons';
+import { useAuth } from '../hooks';
+import { tv } from 'tailwind-variants';
 
-const Main = ({ openMenu, trackData }) => {
+const Main = ({ openMenu, chartsData }) => {
+    const [userFavs, setUserFavs] = useState();
 
-    const formatterFans = (fans, separator) => {
-        return fans.toLocaleString('en-US').split(',').join(separator);
-    }
+    const { user } = useAuth();
+
+    useEffect(() => {
+        if (user) {
+            setUserFavs(user.userFavs);
+        }
+    }, [user?.userFavs]);
+
+    const mainStyle = tv({
+        base: 'flex flex-col items-center w-full h-full py-2 px-6 gap-6',
+        variants: {
+            openMenu: {
+                true: 'hidden'
+            },
+        }
+    });
 
     return (
-        <main className={`${openMenu && styles.openMenu} ${!trackData && styles.loading}`}>
+        <main
+            className={`${mainStyle({ openMenu })} ${!chartsData ? 'justify-center h-screen' : ''}`}
+        >
             {
-                !trackData ?
+                !chartsData
+                    ?
                     <>
-                        <h1>...Carregando</h1>
+                        <h1 className='title'>...Carregando</h1>
                     </>
                     :
                     <>
-                        <h1>Charts</h1>
-                        <label
-                            htmlFor="sound-deezer"
-                            className={styles.comercialButton}
-                        >
-                            <Icon.Play
-                                className={styles.PlayIcon}
-                            />
-                            <input
-                                type="button"
-                                id="sound-deezer"
-                                className={styles.insideComercialButton}
-                                value="Ouça na Deezer"
-                            />
-                        </label>
+                        <h1 className='title'>Charts</h1>
 
-                        <section className={stylesCard.Cards}>
-                            <Card.Group>
+                        <Button.Comercial />
 
-                                {/* Init Group Card */}
+                        <section className='flex flex-col w-full max-w-[100vw] gap-6'>
+
+                            {/* Init Group Card */}
+
+                            <section className='wrapperCardGroup'>
 
                                 <Card.Header
-                                    h2={'Os Hits de Hoje'}
-                                    headerPara={'Atualizados todos os dias'}
+                                    title={'Os Hits de Hoje'}
+                                    flexDirection={'col'}
+                                    description={'Atualizados todos os dias'}
                                 />
-                                <Card.Group className={stylesCard.innerGroup}>
 
-                                    <Card.Root>
-                                        <Card.Main
-                                            img={trackData.playlists.userLocationPlaylist.picture_xl}
-                                            h3={trackData.playlists.userLocationPlaylist.title}
-                                            tracks={`${trackData.playlists.userLocationPlaylist.nb_tracks} faixas`}
-                                            fans={`${formatterFans(trackData.playlists.userLocationPlaylist.fans, ' ')} fãs`}
-                                        />
-                                    </Card.Root>
+                                <Card.Container>
+                                    <Card.Root
+                                        cardId={chartsData.playlists.userLocationPlaylist.id}
+                                        cardData={chartsData.playlists.userLocationPlaylist}
+                                        userFavs={userFavs}
+                                        musicList={chartsData.playlists.userLocationPlaylist.tracks.data?.slice(0, 5)}
+                                        grid={'oneCard'}
+                                    />
+                                </Card.Container>
 
-                                    <Card.MusicList musicList={trackData.playlists.userLocationPlaylist.tracks.data.slice(0, 5)} />
-
-                                </Card.Group>
-
-                            </Card.Group>
+                            </section>
 
                             {/* Finish Group Card */}
 
@@ -67,33 +71,29 @@ const Main = ({ openMenu, trackData }) => {
 
                             {/* Init Group Card */}
 
-                            <Card.Group>
+                            <section className='wrapperCardGroup'>
                                 <Card.Header
-                                    className={stylesCard.CardHeader2}
-                                    h2={'Charts'}
+                                    title={'Charts'}
                                     icon={(
-                                        <Icon.IonIcon.ChevronRight />
+                                        <ChevronRight />
                                     )}
                                 />
 
-                                <Card.Group className={stylesCard.innerGroup}>
-
+                                <Card.Container grid={'multiCards'}>
                                     {
-                                        trackData.playlists.otherLocationPlaylists.map((track) => (
-                                            <Card.Root key={track.id}>
-                                                <Card.Main
-                                                    img={track.picture_xl}
-                                                    h3={track.title}
-                                                    tracks={`${track.nb_tracks} faixas`}
-                                                    fans={`${formatterFans(track.fans, ' ')} fãs`}
-                                                />
-                                            </Card.Root>
+                                        chartsData.playlists.otherLocationPlaylists.map((track) => (
+                                            <Card.Root
+                                                key={track.id}
+                                                cardId={track.id}
+                                                userFavs={userFavs}
+                                                cardData={track}
+                                            />
                                         )
                                         )
                                     }
+                                </Card.Container>
 
-                                </Card.Group>
-                            </Card.Group>
+                            </section>
 
                             {/* Finish Group Card */}
 
@@ -101,27 +101,22 @@ const Main = ({ openMenu, trackData }) => {
 
                             {/* Init Group Card */}
 
-                            <Card.Group>
+                            <section className='wrapperCardGroup'>
                                 <Card.Header
-                                    h2={'SongCatcher'}
-                                    headerPara={'Playlist das músicas mais procuradas'}
+                                    title={'SongCatcher'}
+                                    flexDirection={'col'}
+                                    description={'Playlist das músicas mais procuradas'}
                                 />
 
-                                <Card.Group className={stylesCard.innerGroup}>
-
-                                    {
-                                        <Card.Root key={trackData.playlists.songCatcher.id}>
-                                            <Card.Main
-                                                img={trackData.playlists.songCatcher.picture_xl}
-                                                h3={trackData.playlists.songCatcher.title}
-                                                tracks={`${trackData.playlists.songCatcher.nb_tracks} faixas`}
-                                                fans={`${formatterFans(trackData.playlists.songCatcher.fans, ' ')} fãs`}
-                                            />
-                                        </Card.Root>
-                                    }
-
-                                </Card.Group>
-                            </Card.Group>
+                                <Card.Container>
+                                    <Card.Root
+                                        cardId={chartsData.playlists.songCatcher.id}
+                                        cardData={chartsData.playlists.songCatcher}
+                                        userFavs={userFavs}
+                                        grid={'oneCard'}
+                                    />
+                                </Card.Container>
+                            </section>
 
                             {/* Finish Group Card */}
 
@@ -130,7 +125,7 @@ const Main = ({ openMenu, trackData }) => {
                         </section>
                     </>
             }
-        </main>
+        </main >
     )
 }
 

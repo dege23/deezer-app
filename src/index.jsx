@@ -3,33 +3,47 @@ import { createRoot } from 'react-dom/client';
 import { AuthProvider } from './contexts/Auth.jsx';
 import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom';
 import './index.css';
-import Home from './pages/Home';
-import Form from './pages/form/Form';
+import Page from './pages';
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <Navigate to="/home" replace={true} />,
+    element: <Navigate to="/app/home" replace={true} />,
   },
   {
-    path: '/home',
-    element: <Home />,
+    path: '/form',
     children: [
       {
-        path: ':countryCode',
-        element: <Home />
-      }
+        path: 'register',
+        element: <Page.Form isLogin={false} />
+      },
+      {
+        path: 'login',
+        element: <Page.Form isLogin={true} />
+      },
     ]
   },
   {
-    path: '/register',
-    element: <Form isLogin={false} />
-  },
-  {
-    path: '/login',
-    element: <Form isLogin={true} />
-  },
-]);
+    path: '/app',
+    children: [
+
+      {
+        path: 'home',
+        element: <Page.Home />,
+        children: [
+          {
+            path: ':countryCode',
+            element: <Page.Home />
+          }
+        ]
+      },
+      {
+        path: 'playlist/:id',
+        element: <Page.Playlist />
+      }
+    ]
+  }
+] );
 
 const root = createRoot(document.getElementById('root'));
 

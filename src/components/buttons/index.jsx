@@ -1,5 +1,9 @@
-import ButtonPlaylist from './ButtonPlaylist'
+import ButtonComercial from './ButtonComercial';
+import ButtonPlaylist from './ButtonPlaylist';
+import ButtonSaturn from './ButtonSaturn';
 
 export default {
-    Playlist: ButtonPlaylist
+    Comercial: ButtonComercial,
+    Playlist: ButtonPlaylist,
+    Saturn: ButtonSaturn
 }

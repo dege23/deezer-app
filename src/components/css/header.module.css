@@ -29,7 +29,7 @@
   gap: 8px;
 }
 
-.MenuIcon .line {
+.line {
   width: 20px;
   height: 2px;
   background-color: var(--color-white);
@@ -68,11 +68,6 @@
   color: var(--color-white);
   cursor: pointer;
   font-size: 0.8rem;
-}
-
-.MenuDrawer li a {
-  font-size: 0.8rem;
-  color: var(--color-white);
 }
 
 .Menu.open .MenuDrawer {

@@ -3,8 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import FormSignIn from './FormSignIn';
 import FormSignUp from './FormSignUp';
-import LoadingView from '../../components/loading/Loading';
-import Button from './ButtonForm';
+import ButtonForm from './ButtonForm';
 
 const Form = ({ isLogin, className }) => {
 
@@ -29,7 +28,7 @@ const Form = ({ isLogin, className }) => {
         try {
             const res = await signUp(username, email, password, countryCode);
             if (!res) {
-                navigate('/login');
+                navigate('/form/login');
             }
             else {
                 setError(res);
@@ -63,7 +62,7 @@ const Form = ({ isLogin, className }) => {
             setError('');
         }
         if (signed) {
-            navigate('/home');
+            navigate('/app/home');
         }
     }, [isLogin, signed]);
 
@@ -110,7 +109,7 @@ const Form = ({ isLogin, className }) => {
                             </>
                     }
 
-                    <Button
+                    <ButtonForm
                         type={'button'}
                         text={
                             loginSection
@@ -122,16 +121,16 @@ const Form = ({ isLogin, className }) => {
                         action={() => {
                             loginSection
                                 ?
-                                (navigate('/register'))
+                                (navigate('/form/register'))
                                 :
-                                (navigate('/login'))
+                                (navigate('/form/login'))
                         }
                         }
                     />
 
                     <p className='text-red-600'>{error}</p>
 
-                    <Button
+                    <ButtonForm
                         type={'submit'}
                         text={'Enter'}
                     />
